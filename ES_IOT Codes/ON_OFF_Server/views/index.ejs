@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Download</title>
+<link rel="stylesheet" href="bootstrap.css">
+
+<style>{
+	.touch{
+		background-color:rgba(0,0,0,0.5);
+	}
+}
+</style>
+</head>
+
+<br>
+<body class="container" style="background-image:url(grey.jpg);">
+<div class='jumbotron touch'  style=" text-align:center;">
+<h1>Download Files from the Server</h1>
+
+</div>
+<div  style="background-color:rgba(0,0,0,0.5);">
+<marquee style="color:white;"> <h3>Click to download the files</h3></marquee>
+</div>
+<h2 class ='jumbotron touch' style="text-align:center;">
+Documents in the directory
+</h2>
+<br>
+<ol style="text-align:center; color:white;">
+<% for(var i=0;i<files.length;i++){ %>
+<h3>
+<li style="color=white;">
+	<a href=' <%= files[i] %> '  >
+		<%= files[i] %>
+	</a>
+</li></h3>
+
+<% } %>
+<ol>
+
+
+</body>
+</html>

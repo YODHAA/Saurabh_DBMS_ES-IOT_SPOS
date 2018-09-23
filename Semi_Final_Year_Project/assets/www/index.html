@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html >
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+	<meta charset="UTF-8">
+	<title>Study Booster</title>
+	<link href='https://fonts.googleapis.com/css?family=Raleway:200,400,800' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+	<link rel='stylesheet prefetch' href='https://www.marcoguglie.it/Codepen/AnimatedHeaderBg/demo-1/css/demo.css'>
+    <link rel="stylesheet" href="css/style.css">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
+   <script type="text/javascript">
+ 
+      function fileSelected() {
+ 
+        var count = document.getElementById('fileToUpload').files.length;
+ 
+              document.getElementById('details').innerHTML = "";
+ 
+              for (var index = 0; index < count; index ++)
+ 
+              {
+ 
+                     var file = document.getElementById('fileToUpload').files[index];
+ 
+                     var fileSize = 0;
+ 
+                     if (file.size > 1024 * 1024)
+ 
+                            fileSize = (Math.round(file.size * 100 / (1024 * 1024)) / 100).toString() + 'MB';
+ 
+                     else
+ 
+                            fileSize = (Math.round(file.size * 100 / 1024) / 100).toString() + 'KB';
+ 
+                     document.getElementById('details').innerHTML += '<strong>Name:</strong> ' + file.name + '<br><strong>Size:</strong> ' + fileSize + '<br><strong>Type:</strong> ' + file.type;
+ 
+                     document.getElementById('details').innerHTML += '<p>';
+ 
+              }
+ 
+      }
+ 
+      function uploadFile() {
+ 
+        var fd = new FormData();
+ 
+              var count = document.getElementById('fileToUpload').files.length;
+ 
+              for (var index = 0; index < count; index ++)
+ 
+              {
+ 
+                     var file = document.getElementById('fileToUpload').files[index];
+ 
+                     fd.append('myFile', file);
+ 
+              }
+ 
+        var xhr = new XMLHttpRequest();
+ 
+        xhr.upload.addEventListener("progress", uploadProgress, false);
+ 
+        xhr.addEventListener("load", uploadComplete, false);
+ 
+        xhr.addEventListener("error", uploadFailed, false);
+ 
+        xhr.addEventListener("abort", uploadCanceled, false);
+ 
+        xhr.open("POST", "http://192.168.43.69/Root/savetofile.php");
+ 
+        xhr.send(fd);
+ 
+      }
+ 
+      function uploadProgress(evt) {
+ 
+        if (evt.lengthComputable) {
+ 
+          var percentComplete = Math.round(evt.loaded * 100 / evt.total);
+ 
+          document.getElementById('progress').innerHTML = percentComplete.toString() + '%';
+ 
+        }
+ 
+        else {
+ 
+          
+	document.getElementById('main-title').innerHTML = '<span class="thin">Error has Occured!</span>';
+ 
+        }
+ 
+      }
+ 
+      function uploadComplete(evt) {
+ 
+        /* This event is raised when the server send back a response */
+ 
+        
+        document.getElementById('main-title').innerHTML = '<span class="thin">' + evt.target.responseText + '</span>';
+ 
+      }
+ 
+      function uploadFailed(evt) {
+ 
+        
+        document.getElementById('main-title').innerHTML = '<span class="thin">Error has Occured!</span>';
+
+      }
+ 
+      function uploadCanceled(evt) {
+ 
+        
+	document.getElementById('main-title').innerHTML = '<span class="thin">Error has Occured!</span>'; 
+      }
+ 
+    </script>
+ 
+  
+</head>
+
+<body>
+	<div class="parent">
+	  	<div id="large-header" class="large-header">
+		  	<canvas id="demo-canvas"></canvas>
+		    <h1 id="main-title">Power of <span class="thin">Neural Networks</span></h1>
+
+			<script src='https://www.marcoguglie.it/Codepen/AnimatedHeaderBg/demo-1/js/EasePack.min.js'></script>
+			<script src='https://www.marcoguglie.it/Codepen/AnimatedHeaderBg/demo-1/js/rAF.js'></script>
+			<script src='https://www.marcoguglie.it/Codepen/AnimatedHeaderBg/demo-1/js/TweenLite.min.js'></script>
+
+		    <script src="js/index.js"></script>
+		</div>
+		<div class="uform">    
+			<form id="form1" enctype="multipart/form-data" method="post" action="Upload.aspx">
+		 		<div class="form-control">
+		      		<label for="fileToUpload"class="form-control">Take or select photo(s)</label><br />
+		 			<input type="file" name="fileToUpload" id="fileToUpload" onchange="fileSelected();" accept="image/*" class="form-control" /> 
+		 		</div>
+		 	
+		 		<div id="details" class="form-control"></div>
+			
+				<div>
+					<input type="button" onclick="uploadFile()" value="Upload"  class="form-control sub-btn" />
+				</div>
+			 
+			    <div id="progress" class="form-control"></div>
+			</form>
+		</div>
+	</div>	
+</body>
+</html>

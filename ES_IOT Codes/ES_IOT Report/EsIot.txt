@@ -1,0 +1,17 @@
+
+ES IOT :
+==========
+
+1. 2X (LM 35 and DS18B20)
+2. Capacitors: 3X (0.1 ,100, 1000 micro Farad).
+3. 2 Motors
+4. Resistors
+5. 2X LDR
+6. LED's: 15 White, 10 Red, 3 Green , 3 Yellow
+7. 2 Fans
+8. 2 BreadBoard Long
+9. Camera
+10. Wires: male to female, male to male, female to female.
+11. Electric insulation Tape.
+12. White Chart Paper.
+
