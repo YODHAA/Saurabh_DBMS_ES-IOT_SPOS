@@ -1,0 +1,50 @@
+17. CREATE TABLE countries (
+  code CHAR(2) NOT NULL,
+  yearl INT NOT NULL,
+  gdp_per_capita DECIMAL(10, 2) NOT NULL,
+  govt_debt DECIMAL(10, 2) NOT NULL
+)
+
+Solve following query
+1. What are the top 3 average government debts in percent of the GDP for those countries whose GDP per capita was over 40’000 dollars in every year in the last four years
+2. Are there any countries at all with a GDP per capita of more than 50’000 dollars?
+
+1)mysql> select code, avg(govt_debt) from countries where year>2013 group by code having min(gdp_per_capita)>=40000 order by avg(govt_debt) desc limit 3;
++------+----------------+
+| code | avg(govt_debt) |
++------+----------------+
+| in   |     284.000000 |
+| ca   |     224.000000 |
+| us   |     124.000000 |
++------+----------------+
+3 rows in set (0.00 sec)
+
+
+2)
+mysql> select code, gdp_per_capita from countries where gdp_per_capita>50000;
++------+----------------+
+| code | gdp_per_capita |
++------+----------------+
+| in   |       56660.98 |
+| us   |       66660.98 |
+| ca   |       86660.98 |
+| ar   |       87660.98 |
++------+----------------+
+4 rows in set (0.00 sec)
+
+or 
+
+mysql> select code, max(gdp_per_capita) from countries group by code having max(gdp_per_capita)>50000;
++------+---------------------+
+| code | max(gdp_per_capita) |
++------+---------------------+
+| ar   |            87660.98 |
+| ca   |            86660.98 |
+| in   |            56660.98 |
+| us   |            66660.98 |
++------+---------------------+
+4 rows in set (0.00 sec)
+
+
+
+
